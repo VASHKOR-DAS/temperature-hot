@@ -5,7 +5,7 @@
     <title>Temperature Hot</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" opcontent="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -29,12 +29,7 @@
             </div>
         </form>
         <div class="weather-status text-white text-center">
-
-            <img id="weather-icon"
-
-            src= "https://openweathermap.org/img/wn/02d@2x.png"
-            
-                alt="icon">
+            <img id="icon" src="https://openweathermap.org/img/wn/02d@2x.png" alt="icon">
             <h1 id="name">Dhaka</h1>
             <h3><span id="temp">38.06</span>&deg;C</h3>
             <h1 id="desc" class="lead">Clouds</h1>
@@ -54,44 +49,35 @@
         const desc = document.getElementById('desc');
         const temp = document.getElementById('temp');
 
-        const imgIcon = document.getElementById('weather-icon');
+        const icon = document.getElementById('icon');
 
 
         searchBtn.addEventListener('click', function () {
-            fetch('https://api.openweathermap.org/data/2.5/weather?q='+input.value+'&appid=01c2f892726aa9e0f3da2b6bf00c254b&units=metric')
-            .then(res => res.json())
-            .then(data => {
-                let nameObject = data['name'];
-                let tempObject = data['main']['temp'];
-                let descObject = data['weather'][0]['description'];
+            fetch('https://api.openweathermap.org/data/2.5/weather?q=' + input.value +
+                    '&appid=01c2f892726aa9e0f3da2b6bf00c254b&units=metric')
+                .then(res => res.json())
+                .then(data => {
+                    let nameObject = data['name'];
+                    let tempObject = data['main']['temp'];
+                    let descObject = data['weather'][0]['description'];
+                    // let imgIconObject = data['weather'][0]['icon'];
 
-                name.innerText = nameObject;
-                temp.innerText = tempObject;
-                desc.innerText = descObject;
+                    name.innerText = nameObject;
+                    temp.innerText = tempObject;
+                    desc.innerText = descObject;
+                    // imgIcon.innerText = imgIconObject;
 
-                const url = 'https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png';
+                    //icon
+                    const url = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
-                imgIcon.setAttribute('src', url);
-
-                //icon
-
-
-
-                // const imgIcon = document.getElementById('weather-icon');
-
-                // const url = 'https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png';
-
-
-                // imgIcon.setAttribute('src', url);
-
-
-            })
+                    icon.setAttribute('src', url);
+                })
 
             // .catch(error => alert("Wrong city name!"))
+
+            // empty input value
+            input.value = "";
         })
-
-
-
     </script>
 </body>
 
